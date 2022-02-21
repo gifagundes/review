@@ -1,0 +1,38 @@
+version: "3.8"
+
+volumes:
+  apireviews_files:
+  dbreviews_data:
+
+networks:
+  rotten_potatoes_ms:
+    driver: bridge
+
+services:
+  apireviews:
+    restart: always
+    image: gfagundes/reviews:${TAG_IMAGE_VERSION_REVIEWS}
+    build: 
+      context: ./src/Review.Web
+      dockerfile: ./Dockerfile
+    depends_on:
+      - dbreviews
+    volumes:
+      - apireviews_files:/data/src
+    networks:
+      - rotten_potatoes_ms
+    environment:
+      ConnectionStrings__MyConnection: Host=dbreviews;Database=dbreviews;Username=postgreuser;Password=postgrepwd;
+
+  dbreviews:
+    restart: always
+    volumes:
+      - dbreviews_data:/data/db
+    image: postgres:${TAG_IMAGE_VERSION_DATABASE_POSTGRE}
+    networks:
+      - rotten_potatoes_ms
+    environment:
+      POSTGRES_PASSWORD: postgrepwd
+      POSTGRES_USER: postgreuser
+      POSTGRES_DB: dbreviews
+

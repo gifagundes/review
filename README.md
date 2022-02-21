@@ -15,3 +15,16 @@ Esse projeto trabalha com uma base de dados Postgree
 Exemplo:
 
 ConnectionStrings__MyConnection: Host=localhost;Database=pguser;Username=pguser;Password=Pg@123;
+
+-----------------------------------------
+
+# TESTES
+
+<p>Para rodar este ambiente execute na pasta raiz</p>
+
+<p>docker-compose up -d --remove-orphans --build</p>
+
+<p>Para desmontar o ambiente execute</p>
+
+<p>docker-compose down</p>
+
